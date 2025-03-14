@@ -14,7 +14,6 @@ function App() {
     setModalIsVisible(true);
   }
 
-
   return (
     <>
       <MainHeader onCreatePost={showModalHandler}/>
