@@ -22,12 +22,14 @@ function PostsList({ isPosting, stopPosting }) {
           <NewPost onCancel={stopPosting} onAddPost={addPostHandler} />
         </Modal>
       )}
-      <ul className={styles.posts}>
-        {posts.map((post, index) => {
-          return <Post key={index} author={post.author} body={post.body} />;
-        })};
-        
-      </ul>
+      {posts.length === 0 && <p className={styles.noposts}>No posts found. Start adding some!</p>}
+      {posts.length > 0 && (
+        <ul className={styles.posts}>
+          {posts.map((post, index) => {
+            return <Post key={index} author={post.author} body={post.body} />;
+          })}
+        </ul>
+      )}
     </>
   );
 }
