@@ -6,6 +6,7 @@ import Modal from "./Modal.jsx";
 import styles from "./PostsList.module.css";
 
 function PostsList() {
+  const [modalIsVisible, setModalIsVisible] = useState(true);
   const [enteredText, setEnteredText] = useState([]);
   const [enteredAuthor, setEnteredAuthor] = useState([]);
 
@@ -16,14 +17,18 @@ function PostsList() {
     setEnteredAuthor(event.target.value);
   }
 
+  function hideModalHandler() {
+    setModalIsVisible(false);
+  }
+
   return (
     <>
-      <Modal>
+    {modalIsVisible && <Modal onClose={hideModalHandler}>
         <NewPost
           onAuthorChange={authorChangeHandler}
           onBodyChange={bodyChangeHandler}
         />
-      </Modal>
+      </Modal>}
       <ul className={styles.posts}>
         <Post author={enteredAuthor} body={enteredText} />
         <Post author="Suresh" body="react.ts is better" />
