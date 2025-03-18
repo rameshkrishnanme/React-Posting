@@ -4,6 +4,7 @@ import NewPost from "../routes/NewPost.jsx";
 import Post from "./Post.jsx";
 import Modal from "./Modal.jsx";
 import styles from "./PostsList.module.css";
+import { useLoaderData } from "react-router-dom";
 
 function PostsList({ isPosting, stopPosting }) {
   //  fetch("http://localhost:8080/posts")
@@ -11,29 +12,30 @@ function PostsList({ isPosting, stopPosting }) {
   //    .then((data) => {
   //      setPosts(data.posts);
   //    });
-  const [posts, setPosts] = useState([]);
-  const [isFecthing, setIsFetching] = useState(false);
+  const posts = useLoaderData();
+  //const [posts, setPosts] = useState([]);
+  //const [isFecthing, setIsFetching] = useState(false);
 
-  useEffect(() => {
-    async function fetchPosts() {
-      setIsFetching(true);
-      const response = await fetch("http://localhost:8080/posts");
-      const data = await response.json();
-      setPosts(data.posts);
-      setIsFetching(false);
-    }
-    fetchPosts();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchPosts() {
+  //     setIsFetching(true);
+  //     const response = await fetch("http://localhost:8080/posts");
+  //     const data = await response.json();
+  //     setPosts(data.posts);
+  //     setIsFetching(false);
+  //   }
+  //   fetchPosts();
+  // }, []);
 
   function addPostHandler(postData) {
     // setPosts([postData, ...posts]);
-    fetch("http://localhost:8080/posts", {
-      method: "POST",
-      body: JSON.stringify(postData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }); // POST request to add a new post")
+    // fetch("http://localhost:8080/posts", {
+    //   method: "POST",
+    //   body: JSON.stringify(postData),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // }); // POST request to add a new post")
     setPosts((prevPosts) => {
       return [...prevPosts, postData];
     });
@@ -46,17 +48,17 @@ function PostsList({ isPosting, stopPosting }) {
           <NewPost onCancel={stopPosting} onAddPost={addPostHandler} />
         </Modal>
       )}
-      {!isFecthing && posts.length === 0 && (
+      {posts.length === 0 && (
         <p className={styles.noposts}>No posts found. Start adding some!</p>
       )}
-      {!isFecthing && posts.length > 0 && (
+      {posts.length > 0 && (
         <ul className={styles.posts}>
           {posts.map((post, index) => {
             return <Post key={index} author={post.author} body={post.body} />;
           })}
         </ul>
       )}
-      {isFecthing && <p className={styles.noposts}>Loading Posts...</p>}
+      {/* {isFecthing && <p className={styles.noposts}>Loading Posts...</p>} */}
     </>
   );
 }
