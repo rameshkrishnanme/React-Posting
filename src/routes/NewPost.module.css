@@ -47,8 +47,20 @@
   
   .actions button[type='button'] {
     background-color: transparent;
+    text-decoration: none;
   }
   
   .actions button[type='button']:hover {
+    color: black;
+  
+  }
+
+  .actions a {
+    background-color: transparent;
+    text-decoration: none;
+    color: black;
+  }
+  
+  .actions a:hover {
     color: black;
   }
